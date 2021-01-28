@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager ins;
+
+    bool levelFailed = false;
+    public GameObject levelFailedUI;
+    Player player;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        if (ins == null)
+        {
+            ins = this;
+        }
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GameOver() 
     {
-        
+        if (!levelFailed)
+        {
+            levelFailed = true;
+            levelFailedUI.SetActive(true);
+        }
     }
 }

@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
         }
         if (hearts == 0)
         {
-            // GameManager.ins.GameOver();
+            GameManager.ins.GameOver();
             // play death animation
         }
     }
@@ -64,5 +64,7 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damageAmount) 
     {
         Debug.Log("Player taking " + damageAmount + " damage");
+        DecreaseHearts(damageAmount);
+        Hud.ins.DecreaseHearts();
     }
 }
