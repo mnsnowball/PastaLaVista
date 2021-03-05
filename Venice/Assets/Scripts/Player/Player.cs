@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public float moveSpeedMod = 1f;     // can be powered up or slowed
     public int lives = 3;               // amount of times the player can restart at a checkpoint before starting over
     public int maxLives = 5;            // player cannot exceed this many lives
+    public Checkpoint lastCheckpoint;
 
     void IncreaseLives()
     {
@@ -63,8 +64,17 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damageAmount) 
     {
-        Debug.Log("Player taking " + damageAmount + " damage");
+        //Debug.Log("Player taking " + damageAmount + " damage");
         DecreaseHearts(damageAmount);
         Hud.ins.DecreaseHearts();
+    }
+
+    public void RestoreHealth(int restoreAmount) {
+        IncreaseHearts(restoreAmount);
+        for (int i = 0; i < restoreAmount; i++)
+        {
+            Hud.ins.IncreaseHearts();
+        }
+        
     }
 }

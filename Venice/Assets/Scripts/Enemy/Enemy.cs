@@ -6,16 +6,19 @@ public enum EnemyState {Patrol, Idle, Charging, Telegraphing}
 public class Enemy : MonoBehaviour
 {
     public EnemyState currentState;         // controls current state
+    EnemyState startState;
     public bool hasPatrol;
     public List<Transform> patrolPoints;    // only used in the patrol state
     public float timeToTelegraph = 1.5f;        // number of seconds enemy takes to charge up before they attack
     public float moveSpeed = 4f;
     float telegraphTimer = 0f;
+    Vector3 startPos;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        startPos = this.transform.position;
+        startState = currentState;
     }
 
     // Update is called once per frame
@@ -75,5 +78,10 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log("Charging");
         transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0, 0);
+    }
+
+    public void Respawn() {
+        transform.position = startPos;
+        currentState = startState;
     }
 }
